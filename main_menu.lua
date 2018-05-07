@@ -27,6 +27,7 @@ local scene = composer.newScene( sceneName )
 
 local bkg_image
 local creditsButton
+local instructionsbutton
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -73,7 +74,7 @@ function scene:create( event )
     bkg_image:toBack()
 
     -- Creating From Left Transition button
-        local fromLeftButton = widget.newButton( 
+        local instructionsButton = widget.newButton( 
             {
                 -- Setting Position
                 x = display.contentCenterX,
@@ -115,8 +116,13 @@ function scene:create( event )
 
             -- When the button is released, call the Credits transition function
             onRelease = CreditsTransition
-        } ) 
-        
+        } )
+
+
+    -- Associating button widgets with this scene
+    sceneGroup:insert( creditsButton )
+    sceneGroup:insert( instructionsButton ) 
+
 
 end -- function scene:create( event )
 

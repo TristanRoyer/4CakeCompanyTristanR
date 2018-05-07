@@ -1,4 +1,3 @@
-
 -----------------------------------------------------------------------------------------
 --
 -- main_menu.lua
@@ -29,27 +28,14 @@ sceneName = "credits_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
-----------------------------------------------------------------------------------------
--- LOCAL VARIABLES
------------------------------------------------------------------------------------------
+--local variables
 
 local Credits
-local Instructions
 local backButton
-
---------------------------------------------------------------------------------------------
--- LOCAL FUNCTIONS
---------------------------------------------------------------------------------------------
-
 
 local function MainMenuTransition( )       
     composer.gotoScene( "main_menu", {effect = "fromTop", time = 500})
 end  
-
------------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
------------------------------------------------------------------------------------------
-
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -71,7 +57,6 @@ function scene:create( event )
 
     -- Associating display objects with this scene 
     sceneGroup:insert( Credits )
-
     -- Send the background image to the back layer so all other objects can be on top
     Credits:toBack()
 
@@ -108,7 +93,7 @@ function scene:create( event )
             onRelease = MainMenuTransition         
         } )
 
-    sceneGroup:insert( backButton )
+sceneGroup:insert( backButton )
 
 end
 
@@ -171,8 +156,6 @@ end -- function scene:hide( event )
 
 -- The function called when the scene is issued to be destroyed
 function scene:destroy( event )
-
-    
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
