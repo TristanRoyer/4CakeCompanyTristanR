@@ -29,14 +29,27 @@ sceneName = "credits_screen"
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
---local variables
+----------------------------------------------------------------------------------------
+-- LOCAL VARIABLES
+-----------------------------------------------------------------------------------------
 
+local Credits
 local Instructions
 local backButton
+
+--------------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+--------------------------------------------------------------------------------------------
+
 
 local function MainMenuTransition( )       
     composer.gotoScene( "main_menu", {effect = "fromTop", time = 500})
 end  
+
+-----------------------------------------------------------------------------------------
+-- GLOBAL SCENE FUNCTIONS
+-----------------------------------------------------------------------------------------
+
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -49,7 +62,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    local Credits = display.newImage("CreditsScreenTristanR.png")
+    Credits = display.newImage("Images/CreditsScreenTristanR.png")
     Credits.x = display.contentCenterX
     Credits.y = display.contentCenterY
     Credits.width = display.contentWidth
@@ -95,7 +108,7 @@ function scene:create( event )
             onRelease = MainMenuTransition         
         } )
 
-sceneGroup:insert( backButton )
+    sceneGroup:insert( backButton )
 
 end
 

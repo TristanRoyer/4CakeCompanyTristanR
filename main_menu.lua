@@ -21,7 +21,16 @@ sceneName = "main_menu"
 -- Create Scene Object
 local scene = composer.newScene( sceneName )
 
+----------------------------------------------------------------------------------------
+-- LOCAL VARIABLES
+-----------------------------------------------------------------------------------------
+
 local bkg
+local creditsButton
+
+--------------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+--------------------------------------------------------------------------------------------
 
 -- Creating Transition Function to Instructions Page
 local function InstructionsTransition( )       
@@ -33,11 +42,10 @@ local function CreditsTransition( )
     composer.gotoScene( "credits_screen", {effect = "fromLeft", time = 500})
 end 
 
-
-
  
-
-
+-----------------------------------------------------------------------------------------
+-- GLOBAL SCENE FUNCTIONS
+-----------------------------------------------------------------------------------------
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -45,29 +53,7 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-end -- function scene:create( event )
-
---------------------------------------------------------------------------------------------
-
--- The function called when the scene is issued to appear on screen
-function scene:show( event )
-
-    -- Creating a group that associates objects with the scene
-    local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
-    local phase = event.phase
-
-    -----------------------------------------------------------------------------------------
-
-    -- Called when the scene is still off screen (but is about to come on screen).
-    if ( phase == "will" ) then
-    -----------------------------------------------------------------------------------------
-
-    elseif ( phase == "did" ) then
-
-        -- Creating From Left Transition button
+    -- Creating From Left Transition button
         local fromLeftButton = widget.newButton( 
             {
                 -- Setting Position
@@ -95,35 +81,47 @@ function scene:show( event )
                 onRelease = InstructionsTransition -- This function is executed when the touch of the button is Released
             } )
       
+        -- Creating Credits Button
+        creditsButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth*7/8,
+            y = display.contentHeight*7/8,
+            width = 200,
+            height = 100,
 
-    -- Creating From Left Transition button
-        local fromLeftButton2 = widget.newButton( 
-            {
-                -- Setting Position
-                x = display.contentWidth/6,
-                y = ( display.contentHeight / 8 ) * 7,
+            -- Insert the images here
+            defaultFile = "Images/CreditsButtonUnpressed.png",
+            overFile = "Images/CreditsButtonPressed.png",
 
-                -- Creating button shape
-                shape = "roundedRect",
-                width = display.contentWidth / 4,
-                height = 50,
-                cornerRadius = 25,
-                strokeWidth = 10,
+            -- When the button is released, call the Credits transition function
+            onRelease = CreditsTransition
+        } ) 
+        
 
-                -- Changing button colors (Default = not clicked, over = clicked)
-                fillColor = { default = { 0.6, 0.6, 0.6 }, over = { 0.3, 0.3, 0.3 } },
-                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
-                
-                -- Creating text on button
-                label = "Credits", -- The text labeled on the button
-                labelColor = { default = { 1, 1, 1 }, over = { 1, 1, 1 } },
-                font = Arial,
-                fontSize = 42,
+end -- function scene:create( event )
 
-                -- Button Functions
-                onRelease = CreditsTransition -- This function is executed when the touch of the button is Released
-            } )
-      
+--------------------------------------------------------------------------------------------
+
+-- The function called when the scene is issued to appear on screen
+function scene:show( event )
+
+    -- Creating a group that associates objects with the scene
+    local sceneGroup = self.view
+
+    -----------------------------------------------------------------------------------------
+
+    local phase = event.phase
+
+    -----------------------------------------------------------------------------------------
+
+    -- Called when the scene is still off screen (but is about to come on screen).
+    if ( phase == "will" ) then
+    -----------------------------------------------------------------------------------------
+
+    elseif ( phase == "did" ) then
+
+        
     
     end
                   
