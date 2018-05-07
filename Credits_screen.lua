@@ -64,30 +64,19 @@ function scene:create( event )
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
-    -- Creating Play Button
+    -- Creating back Button
     backButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*1/8,
             y = display.contentHeight*7/8,
 
-            
-                -- Creating button shape
-                shape = "roundedRect",
-                width = display.contentWidth / 4,
-                height = 50,
-                cornerRadius = 20,
-                strokeWidth = 10,
+             width = 200,
+             height = 100,
 
-                -- Changing button colors (Default = not clicked, over = clicked)
-                fillColor = { default = { 1, 0.6, 0.2 }, over = { 0.5, 0.3, 0.1 } },
-                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
-                
-                -- Creating text on button
-                label = "Back", -- The text labeled on the button
-                labelColor = { default = { 1, 1, 1 }, over = { 1, 1, 1 } },
-                font = Arial,
-                fontSize = 40,
+            -- Insert the images here
+            defaultFile = "Images/BackButtonUnpressed.png",
+            overFile = "Images/BackButtonPressed.png",
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = MainMenuTransition         

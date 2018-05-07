@@ -74,7 +74,7 @@ function scene:create( event )
     bkg_image:toBack()
 
     -- Creating From Left Transition button
-        local instructionsButton = widget.newButton( 
+         instructionsButton = widget.newButton( 
             {
                 -- Setting Position
                 x = display.contentCenterX,
