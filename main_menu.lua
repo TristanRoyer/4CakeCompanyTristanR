@@ -28,6 +28,11 @@ local function InstructionsTransition( )
     composer.gotoScene( "Instructions_screen", {effect = "fromLeft", time = 500})
 end 
 
+-- Creating Transition Function to Instructions Page
+local function CreditsTransition( )       
+    composer.gotoScene( "credits_screen", {effect = "fromLeft", time = 500})
+end 
+
 
 
  
@@ -116,7 +121,7 @@ function scene:show( event )
                 fontSize = 42,
 
                 -- Button Functions
-                onRelease = InstructionsTransition -- This function is executed when the touch of the button is Released
+                onRelease = CreditsTransition -- This function is executed when the touch of the button is Released
             } )
       
     
