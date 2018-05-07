@@ -172,6 +172,8 @@ end -- function scene:hide( event )
 -- The function called when the scene is issued to be destroyed
 function scene:destroy( event )
 
+    
+
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
