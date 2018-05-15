@@ -3,7 +3,7 @@
 -- main_menu.lua
 -- Created by: Tristan Royer
 -- Date: 5th May 2018
--- Description: This is the main menu, displaying the credits, instructions & play buttons.
+-- Description: This is Credits screen
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ function scene:create( event )
             defaultFile = "Images/BackButtonUnpressed.png",
             overFile = "Images/BackButtonPressed.png",
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the main menu screen transition function
             onRelease = MainMenuTransition         
         } )
 

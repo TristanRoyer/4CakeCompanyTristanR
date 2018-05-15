@@ -55,6 +55,7 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
+-- create background image
     background = display.newImageRect("Images/Level1_screen.png",0,0)
     background.x = display.contentCenterX
     background.y = display.contentCenterY

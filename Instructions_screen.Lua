@@ -67,7 +67,7 @@ function scene:create( event )
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
-    -- Creating Play Button
+    -- Creating back Button
     backButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size

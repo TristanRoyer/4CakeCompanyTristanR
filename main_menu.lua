@@ -53,10 +53,11 @@ local function level1ScreenTransition( )
     composer.gotoScene("level1_screen", {effect = "fromLeft", time = 500})
 end
 
+-- -------------------------------------------------------------
 local function SettingsTransition( )
     composer.gotoScene("Settings", {effect = "fromLeft", time = 500})
  end
-
+-----------------------------------------------------------------
 -- Mutes sound and makes the unmute button visible 
  local function MuteSound()
     audio.stop(backgroundMusicChannel)
@@ -103,7 +104,7 @@ function scene:create( event )
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
 
-    -- Creating From Left Transition button
+    -- Creating Instructions button
          instructionsButton = widget.newButton( 
             {
                 -- Setting Position
