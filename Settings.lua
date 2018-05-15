@@ -1,25 +1,22 @@
 -----------------------------------------------------------------------------------------
 --
--- SceneTemplate.lua
--- Scene Template (Composer API)
---Created by: Tristan Royer
--- Date: 5/14/18
---
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
 -- INITIALIZATIONS
 -----------------------------------------------------------------------------------------
 
--- Calling Composer Library
+-- Use Composer Libraries
 local composer = require( "composer" )
-
 local widget = require( "widget" )
+local physics = require("physics")
+
+
 
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_lose"
+sceneName = "level1_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -27,43 +24,95 @@ sceneName = "you_lose"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
--- FORWARD REFERENCES
+-- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
--- local variables for the scene
-local bkg
-
-local loseSound = audio.loadSound("Sounds/youLose.mp3")
-local loseSoundChannel
+-- The local variables for this scene
+local muteButton
+local unmuteButton
 
 
-----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
--- LOCAL FUNCTIONS
+-- LOCAL SCENE FUNCTIONS
+----------------------------------------------------------------------------------------- 
+
+
+-----------------------------------------------------------------------------------------
+-- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
+-- GLOBAL SCENE FUNCTIONS
+-----------------------------------------------------------------------------------------
+
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    -- Display background
-    bkg = display.newImage("Images/YouLose.png")
-    bkg.x = display.contentCenterX
-    bkg.y = display.contentCenterY
-    bkg.width = display.contentWidth
-    bkg.height = display.contentHeight
-   
-    -- Associating display objects with this scene 
-    sceneGroup:insert( bkg )
-  
-end    
+    -- Creating play button
+         muteButton = widget.newButton( 
+            {
+                -- Setting Position
+                x = display.contentCenterX,
+                y = ( display.contentHeight / 8 ) * 2,
 
------------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
------------------------------------------------------------------------------------------
+                -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 3,
+                height = 50,
+                cornerRadius = 25,
+                strokeWidth = 10,
+
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 0.2, 1, 1 }, over = { 0.1, 0.5, 0.5 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "Mute", -- The text labeled on the button
+                labelColor = { default = { 0, 0, 0 }, over = { 0, 0, 0 } },
+                font = Arial,
+                fontSize = 42,
+
+                -- Button Functions
+                onRelease = MuteSound -- This function is executed when the touch of the button is Released
+            } )
+
+         -- Creating play button
+         unmuteButton = widget.newButton( 
+            {
+                -- Setting Position
+                x = display.contentCenterX,
+                y = ( display.contentHeight / 8 ) * 2,
+
+                -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 3,
+                height = 50,
+                cornerRadius = 25,
+                strokeWidth = 10,
+
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 0.2, 1, 1 }, over = { 0.1, 0.5, 0.5 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "UnMute", -- The text labeled on the button
+                labelColor = { default = { 0, 0, 0 }, over = { 0, 0, 0 } },
+                font = Arial,
+                fontSize = 42,
+
+                -- Button Functions
+                onRelease = UnmuteSound -- This function is executed when the touch of the button is Released
+            } )
+
+  
+
+
+
+end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -72,28 +121,25 @@ function scene:show( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+
         -- Called when the scene is still off screen (but is about to come on screen).
-
     -----------------------------------------------------------------------------------------
-
+      
     elseif ( phase == "did" ) then
-
-         loseSoundChannel = audio.play(loseSound)
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+
+
     end
 
-end
+end --function scene:show( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -102,14 +148,13 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+
+        physics.start()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -117,10 +162,10 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
+       
     end
 
-end
+end --function scene:hide( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -132,11 +177,11 @@ function scene:destroy( event )
 
     -----------------------------------------------------------------------------------------
 
-
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end
+
+end -- function scene:destroy( event )
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
@@ -151,4 +196,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-

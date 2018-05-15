@@ -27,7 +27,12 @@ local scene = composer.newScene( sceneName )
 
 local bkg_image
 local creditsButton
-local instructionsbutton
+local instructionsButton
+local playButton
+local backgroundMusic = audio.loadSound("Sounds/bensound-acousticbreeze.mp3")
+local backgroundMusicChannel
+local muteButton
+local unMuteButton
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -38,12 +43,37 @@ local function InstructionsTransition( )
     composer.gotoScene( "Instructions_screen", {effect = "fromLeft", time = 500})
 end 
 
--- Creating Transition Function to Instructions Page
+-- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
     composer.gotoScene( "credits_screen", {effect = "fromLeft", time = 500})
 end 
 
- 
+-- Createing Transition Function to level 1 screen
+local function level1ScreenTransition( )
+    composer.gotoScene("level1_screen", {effect = "fromLeft", time = 500})
+end
+
+local function SettingsTransition( )
+    composer.gotoScene("Settings", {effect = "fromLeft", time = 500})
+ end
+
+-- Mutes sound and makes the unmute button visible 
+ local function MuteSound()
+    audio.stop(backgroundMusicChannel)
+    muteButton.alpha = 0
+    if (muteButton.alpha == 0 ) then
+    unMuteButton.alpha = 1
+end
+end
+
+-- Unmutes sound and makes the mute button visible
+ local function UnMuteSound()
+    backgroundMusicChannel = audio.play(backgroundMusic)
+    unMuteButton.alpha = 0
+    if (unMuteButton.alpha == 0 ) then
+    muteButton.alpha = 1
+end
+end
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -108,10 +138,72 @@ function scene:create( event )
             onRelease = CreditsTransition
         } )
 
+         -- Creating play button
+         playButton = widget.newButton( 
+            {
+                -- Setting Position
+                x = display.contentCenterX,
+                y = ( display.contentHeight / 13 ) * 2,
+
+                
+             width = 200,
+            height = 100,
+
+            -- Insert the images here
+            defaultFile = "Images/PlayButtonUnpressedDesmyMj.png",
+            overFile = "Images/PlayButtonPressedDesmyMj.png",
+
+
+                -- Button Functions
+                onRelease = level1ScreenTransition -- This function is executed when the touch of the button is Released
+            } )
+
+         -- Creating unmute button
+         unMuteButton = widget.newButton( 
+            {
+                -- Setting Position
+                x = display.contentCenterX,
+                y = ( display.contentHeight / 7 ) * 2,
+
+             width = 200,
+             height = 100,
+
+            -- Insert the images here
+            defaultFile = "Images/UnmuteButtonUnpressedDesmyMj.png",
+            overFile = "Images/UnmuteButtonPressedDesmyMj.png",
+
+
+                -- Button Functions
+                onRelease = UnMuteSound -- This function is executed when the touch of the button is Released
+            } )
+
+          -- Creating mute button
+         muteButton = widget.newButton( 
+            {
+                -- Setting Position
+                x = display.contentCenterX,
+                y = ( display.contentHeight / 7 ) * 2,
+
+             width = 200,
+             height = 100,
+
+            -- Insert the images here
+            defaultFile = "Images/MuteButtonUnpressedDesmyMj.png",
+            overFile = "Images/MuteButtonPressedDesmyMj.png",
+
+
+                -- Button Functions
+                onRelease = MuteSound -- This function is executed when the touch of the button is Released
+            } )
+
+
 
     -- Associating button widgets with this scene
     sceneGroup:insert( creditsButton )
     sceneGroup:insert( instructionsButton ) 
+    sceneGroup:insert( playButton )
+    sceneGroup:insert( muteButton )
+    sceneGroup:insert( unMuteButton )
 
 
 end -- function scene:create( event )
@@ -136,6 +228,17 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
 
+
+--plays music
+        backgroundMusicChannel = audio.play(backgroundMusic)
+
+       -- Makes the mute button visible
+          muteButton.alpha = 1
+
+          -- Makes the unmute button invisible
+       
+          unMuteButton.alpha = 0
+
         
     
     end
@@ -159,10 +262,11 @@ function scene:hide( event )
     if ( phase == "will" ) then  
 
     -----------------------------------------------------------------------------------------
-
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
-           end
+        -- stops the music
+    audio.stop(backgroundMusicChannel)
+    end
 
 end --function scene:hide( event )
 

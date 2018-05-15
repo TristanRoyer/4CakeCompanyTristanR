@@ -19,7 +19,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_lose"
+sceneName = "win_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -33,9 +33,8 @@ local scene = composer.newScene( sceneName )
 -- local variables for the scene
 local bkg
 
-local loseSound = audio.loadSound("Sounds/youLose.mp3")
-local loseSoundChannel
-
+local winSound = audio.loadSound("Sounds/Winning-sound-effect.mp3")
+local winSoundChannel
 
 ----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
@@ -50,7 +49,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/YouLose.png")
+    bkg = display.newImage("Images/YouWin.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -86,7 +85,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
 
-         loseSoundChannel = audio.play(loseSound)
+        winSoundChannel = audio.play(winSound)
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
@@ -151,4 +150,3 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-

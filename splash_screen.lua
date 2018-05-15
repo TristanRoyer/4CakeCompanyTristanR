@@ -32,6 +32,7 @@ local CompanyLogoText
 local DramaticSounds = audio.loadSound("Sounds/DUN DUN DUUUUN!!! (Dramatic Sound Effect).mp3")
 local DramaticSoundsChannel
 
+
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 --------------------------------------------------------------------------------------------
@@ -112,7 +113,9 @@ function scene:show( event )
         timer.performWithDelay(3000,FadeOut)
 
          -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 4000, gotoMainMenu)        
+        timer.performWithDelay ( 4000, gotoMainMenu)  
+
+           
     end             
 
 end --function scene:show( event )
@@ -140,6 +143,8 @@ function scene:hide( event )
         
         -- stop the Dramatic sounds channel for this screen
         audio.stop(DramaticSoundsChannel)
+
+
     end
 
 end --function scene:hide( event )
@@ -151,6 +156,7 @@ function scene:destroy( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
 
     -----------------------------------------------------------------------------------------
 
